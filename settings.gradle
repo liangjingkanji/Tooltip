@@ -1,0 +1,2 @@
+include ':app', ':tooltip'
+rootProject.name='Tooltip'
