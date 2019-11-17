@@ -1,6 +1,10 @@
 package com.drake.tooltip.sample
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.drake.tooltip.longToast
 import com.drake.tooltip.toast
@@ -12,7 +16,37 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_short.setOnClickListener { toast("当前时间 = ${System.currentTimeMillis()}") }
+
+        // 短吐司
+        btn_short.setOnClickListener {
+            // 开启子线程显示吐司
+            Thread(Runnable { toast("当前时间 = ${System.currentTimeMillis()}") }).start()
+        }
+
+        // 长吐司
         btn_long.setOnClickListener { longToast("当前时间 = ${System.currentTimeMillis()}") }
+
+        // 自定义默认吐司
+        btn_custom_default_toast.setOnClickListener {
+            toast("当前时间 = ${System.currentTimeMillis()}") {
+                view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                view.findViewById<TextView>(android.R.id.message).typeface = Typeface.DEFAULT_BOLD
+            }
+        }
+
+
+        // 自定义视图吐司
+        btn_custom.setOnClickListener {
+            toast {
+                setGravity(Gravity.CENTER, 0, 0)
+                ProgressBar(this@MainActivity)
+            }
+        }
+
+        // 自定义全局等级吐司
+        btn_level_toast.setOnClickListener {
+            toast("这是一条很长的错误消息", App.LEVEL_ERROR)
+        }
+
     }
 }

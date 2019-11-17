@@ -10,19 +10,47 @@
         android:id="@+id/btn_short"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="短吐司"
+        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
-        android:text="短吐司"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_long"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/btn_short"
-        app:layout_constraintTop_toBottomOf="@id/btn_short"
         android:layout_marginTop="20dp"
-        android:text="长吐司"/>
+        android:text="长吐司"
+        app:layout_constraintLeft_toLeftOf="@id/btn_short"
+        app:layout_constraintTop_toBottomOf="@id/btn_short" />
+
+    <Button
+        android:id="@+id/btn_custom_default_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="自定义默认吐司"
+        app:layout_constraintLeft_toLeftOf="@id/btn_short"
+        app:layout_constraintTop_toBottomOf="@+id/btn_long" />
+
+    <Button
+        android:id="@+id/btn_level_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Level 吐司"
+        app:layout_constraintLeft_toLeftOf="@id/btn_short"
+        app:layout_constraintTop_toBottomOf="@+id/btn_custom_default_toast" />
+
+    <Button
+        android:id="@+id/btn_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="自定义视图吐司"
+        app:layout_constraintLeft_toLeftOf="@id/btn_short"
+        app:layout_constraintTop_toBottomOf="@+id/btn_level_toast" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
