@@ -3,7 +3,6 @@ package com.drake.tooltip
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -187,7 +186,7 @@ fun Fragment.longToast(content: View, config: Toast.(v: View) -> Unit = {}) {
 }
 
 
-fun runMain(block: () -> Unit) {
+private fun runMain(block: () -> Unit) {
     if (Looper.myLooper() == Looper.getMainLooper()) {
         block()
     } else {
