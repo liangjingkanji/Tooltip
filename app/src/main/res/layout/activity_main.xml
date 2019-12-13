@@ -27,22 +27,13 @@
         app:layout_constraintTop_toBottomOf="@id/btn_short" />
 
     <Button
-        android:id="@+id/btn_custom_default_toast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="自定义默认吐司"
-        app:layout_constraintLeft_toLeftOf="@id/btn_short"
-        app:layout_constraintTop_toBottomOf="@+id/btn_long" />
-
-    <Button
         android:id="@+id/btn_level_toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Level 吐司"
         app:layout_constraintLeft_toLeftOf="@id/btn_short"
-        app:layout_constraintTop_toBottomOf="@+id/btn_custom_default_toast" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_long" />
 
     <Button
         android:id="@+id/btn_custom"

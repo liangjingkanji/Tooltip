@@ -31,7 +31,7 @@ allprojects {
 module 的 build.gradle
 
 ```groovy
-implementation 'com.github.liangjingkanji:Tooltip:1.0.2'
+implementation 'com.github.liangjingkanji:Tooltip:1.0.3'
 ```
 
 
@@ -119,6 +119,20 @@ class App : Application() {
 
 ```
  toast("这是一条很长的错误消息", App.LEVEL_ERROR)
+```
+
+
+
+### 全局默认吐司
+
+可以替换掉系统默认的吐司样式, 使用场景, 某些国产系统例如小米吐司默认会加上应用名称这个时候就可以自定义吐司样式就不会存在应用名称
+
+```kotlin
+ToastConfig.onToast { context: Context, msg: CharSequence ->
+
+                     View.inflate(context, R.layout.layout_toast_error, null)
+                     .apply { tv_msg.text = msg }
+                    }
 ```
 
 

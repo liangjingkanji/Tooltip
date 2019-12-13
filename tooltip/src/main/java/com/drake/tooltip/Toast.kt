@@ -1,71 +1,42 @@
 package com.drake.tooltip
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 
-object ToastConfig {
-    internal var toast: Toast? = null
-
-    internal var onLevel: (Toast.(msg: CharSequence, level: Int) -> View?)? = null
-
-    fun onLevel(block: Toast.(msg: CharSequence, level: Int) -> View?) {
-        onLevel = block
-    }
-}
-
-fun Context.toast(msg: Int, config: Toast.() -> Unit = {}) {
+fun Context.toast(msg: Int) {
     ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT).apply { config() }
-        ToastConfig.toast?.show()
-    }
+    showDefault(getString(msg))
 }
 
-fun Fragment.toast(msg: Int, config: Toast.() -> Unit = {}) {
 
-    activity ?: return
+fun Fragment.toast(msg: Int) {
+    context?.toast(msg)
+}
 
+fun Context.toast(msg: CharSequence) {
     ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT).apply { config() }
-        ToastConfig.toast?.show()
-    }
+    showDefault(msg)
 }
 
-fun Context.toast(msg: CharSequence, config: Toast.() -> Unit = {}) {
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT).apply { config() }
-        ToastConfig.toast?.show()
-    }
+fun Fragment.toast(msg: CharSequence) {
+    context?.toast(msg)
 }
 
-fun Fragment.toast(msg: CharSequence, config: Toast.() -> Unit = {}) {
-    activity ?: return
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT).apply { config() }
-        ToastConfig.toast?.show()
-    }
-}
-
+/**
+ * 在函数[ToastConfig.onToast]通过参数[level]来判断返回不同的View
+ */
 fun Context.toast(msg: CharSequence, level: Int) {
+
     ToastConfig.toast?.cancel()
 
     runMain {
         var levelOfView: View?
 
         val toast = Toast(this).apply {
-            levelOfView = ToastConfig.onLevel?.invoke(this, msg, level)
+            levelOfView = ToastConfig.onLevel?.invoke(this, this@toast, msg, level)
             view = levelOfView
         }
 
@@ -77,24 +48,12 @@ fun Context.toast(msg: CharSequence, level: Int) {
 }
 
 fun Fragment.toast(msg: CharSequence, level: Int) {
-    activity ?: return
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        var levelOfView: View?
-
-        val toast = Toast(activity).apply {
-            levelOfView = ToastConfig.onLevel?.invoke(this, msg, level)
-            view = levelOfView
-        }
-
-        levelOfView ?: return@runMain
-
-        ToastConfig.toast = toast
-        ToastConfig.toast?.show()
-    }
+    context?.toast(msg, level)
 }
 
+/**
+ * 配置吐司
+ */
 fun Context.toast(config: (Toast.() -> View)? = null) {
     ToastConfig.toast?.cancel()
 
@@ -108,88 +67,46 @@ fun Context.toast(config: (Toast.() -> View)? = null) {
 }
 
 fun Fragment.toast(config: (Toast.() -> View)? = null) {
-    activity ?: return
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast(activity).apply {
-            view = config?.invoke(this)
-            duration = Toast.LENGTH_SHORT
-        }
-        ToastConfig.toast?.show()
-    }
+    context?.toast(config)
 }
 
-fun Context.longToast(msg: Int, config: Toast.() -> Unit = {}) {
+fun Context.longToast(msg: Int) {
     ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(this, msg, Toast.LENGTH_LONG).apply { config() }
-        ToastConfig.toast?.show()
-    }
+    showDefault(getString(msg), false)
 }
 
-fun Fragment.longToast(msg: Int, config: Toast.() -> Unit = {}) {
-    activity ?: return
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(activity, msg, Toast.LENGTH_LONG).apply { config() }
-        ToastConfig.toast?.show()
-    }
+fun Fragment.longToast(msg: Int) {
+    context?.toast(msg)
 }
 
-fun Context.longToast(msg: CharSequence, config: Toast.() -> Unit = {}) {
+fun Context.longToast(msg: CharSequence) {
     ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(this, msg, Toast.LENGTH_LONG).apply { config() }
-        ToastConfig.toast?.show()
-    }
+    showDefault(msg, false)
 }
 
-fun Fragment.longToast(msg: CharSequence, config: Toast.() -> Unit = {}) {
-    activity ?: return
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast.makeText(activity, msg, Toast.LENGTH_LONG).apply { config() }
-        ToastConfig.toast?.show()
-    }
-}
-
-fun Context.longToast(content: View, config: Toast.(v: View) -> Unit = {}) {
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast(this).apply {
-            view = content
-            duration = Toast.LENGTH_LONG
-            config(view)
-        }
-        ToastConfig.toast?.show()
-    }
-}
-
-fun Fragment.longToast(content: View, config: Toast.(v: View) -> Unit = {}) {
-    activity ?: return
-    ToastConfig.toast?.cancel()
-
-    runMain {
-        ToastConfig.toast = Toast(activity).apply {
-            view = content
-            duration = Toast.LENGTH_LONG
-            config(view)
-        }
-        ToastConfig.toast?.show()
-    }
+fun Fragment.longToast(msg: CharSequence) {
+    context?.toast(msg)
 }
 
 
-private fun runMain(block: () -> Unit) {
-    if (Looper.myLooper() == Looper.getMainLooper()) {
-        block()
-    } else {
-        Handler(Looper.getMainLooper()).post { block() }
+/**
+ * 显示常用默认的吐司或者全局设置的吐司样式
+ *
+ * @param msg 吐司内容
+ * @param short 消息停留时间间隔
+ */
+private fun Context?.showDefault(msg: CharSequence, short: Boolean = true) {
+    this ?: return
+
+    runMain {
+
+        ToastConfig.toast = if (ToastConfig.onToast != null) {
+            Toast(this).apply {
+                duration = if (short) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
+                view = ToastConfig.onToast!!(this, this@showDefault, msg)
+            }
+        } else Toast.makeText(this, msg, Toast.LENGTH_SHORT)
+
+        ToastConfig.toast?.show()
     }
 }

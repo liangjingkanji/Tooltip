@@ -1,10 +1,8 @@
 package com.drake.tooltip.sample
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.drake.tooltip.longToast
 import com.drake.tooltip.toast
@@ -20,19 +18,11 @@ class MainActivity : AppCompatActivity() {
         // 短吐司
         btn_short.setOnClickListener {
             // 开启子线程显示吐司
-            Thread(Runnable { toast("当前时间 = ${System.currentTimeMillis()}") }).start()
+            Thread(Runnable { toast("开启子线程显示吐司开启子线程显示吐司开启子线程显示吐司开启子线程显示吐司开启子线程显示吐司开启子线程显示吐司开启子线程显示吐司 当前时间 = ${System.currentTimeMillis()}") }).start()
         }
 
         // 长吐司
         btn_long.setOnClickListener { longToast("当前时间 = ${System.currentTimeMillis()}") }
-
-        // 自定义默认吐司
-        btn_custom_default_toast.setOnClickListener {
-            toast("当前时间 = ${System.currentTimeMillis()}") {
-                view.setBackgroundColor(resources.getColor(R.color.colorAccent))
-                view.findViewById<TextView>(android.R.id.message).typeface = Typeface.DEFAULT_BOLD
-            }
-        }
 
 
         // 自定义视图吐司
