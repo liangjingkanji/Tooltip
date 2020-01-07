@@ -31,7 +31,7 @@ allprojects {
 module 的 build.gradle
 
 ```groovy
-implementation 'com.github.liangjingkanji:Tooltip:1.0.3'
+implementation 'com.github.liangjingkanji:Tooltip:1.0.4'
 ```
 
 
@@ -68,14 +68,9 @@ toast(message)
 longToast(message)
 
 // 配置Toast
-toast("吐司信息") {
-                view.setBackgroundColor(resources.getColor(R.color.colorAccent)) // 修改吐司背景颜色
-			    view.findViewById<TextView>(android.R.id.message).typeface = Typeface.DEFAULT_BOLD // 设置粗体字
-            }
-
 toast {
     setGravity(Gravity.CENTER, 0, 0)
-    ProgressBar(this@MainActivity)
+    view = ProgressBar(this@MainActivity)
 }
 ```
 
@@ -85,7 +80,7 @@ toast {
 
 在某些时候可能需要配置一些错误提醒样式的吐司或者正确样式的吐司
 
-![Screenshot_20191117-180640__01](https://tva1.sinaimg.cn/large/006y8mN6gy1g9179i3gqrj30u01qsjsi.jpg)
+<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g9179i3gqrj30u01qsjsi.jpg" alt="Screenshot_20191117-180640__01" style="zoom: 25%;" />
 
 在Application中配置全局等级吐司的视图样式
 
@@ -102,10 +97,7 @@ class App : Application() {
         ToastConfig.onLevel { msg, level ->
             when (level) {
                 LEVEL_ERROR -> {
-                    View.inflate(this@App, R.layout.layout_toast_error, null).apply { tv_msg.text = msg }
-                }
-                else -> {
-                    null // 返回null表示不显示任何内容
+                    view = View.inflate(this@App, R.layout.layout_toast_error, null).apply { tv_msg.text = msg }
                 }
             }
         }
@@ -130,9 +122,17 @@ class App : Application() {
 ```kotlin
 ToastConfig.onToast { context: Context, msg: CharSequence ->
 
-                     View.inflate(context, R.layout.layout_toast_error, null)
+                     view = View.inflate(context, R.layout.layout_toast_error, null)
                      .apply { tv_msg.text = msg }
                     }
+```
+
+
+
+设置自动当界面隐藏时自动取消吐司
+
+```
+ToastConfig.autoCancel = true
 ```
 
 

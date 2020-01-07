@@ -3,19 +3,23 @@ package com.drake.tooltip
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.widget.Toast
 
 object ToastConfig {
 
     internal var toast: Toast? = null
-    internal var onLevel: (Toast.(context: Context, msg: CharSequence, level: Int) -> View?)? = null
-    internal var onToast: (Toast.(context: Context, msg: CharSequence) -> View)? = null
+    internal var onLevel: (Toast.(context: Context, msg: CharSequence, level: Int) -> Unit)? = null
+    internal var onToast: (Toast.(context: Context, msg: CharSequence) -> Unit)? = null
+    var autoCancel = false
+
+    fun cancel() {
+        toast?.cancel()
+    }
 
     /**
      * 全局等级吐司配置
      */
-    fun onLevel(block: Toast.(context: Context, msg: CharSequence, level: Int) -> View?) {
+    fun onLevel(block: Toast.(context: Context, msg: CharSequence, level: Int) -> Unit) {
         onLevel = block
     }
 
@@ -23,7 +27,7 @@ object ToastConfig {
     /**
      * 全局吐司的配置
      */
-    fun onToast(block: Toast.(context: Context, msg: CharSequence) -> View) {
+    fun onToast(block: Toast.(context: Context, msg: CharSequence) -> Unit) {
         onToast = block
     }
 

@@ -15,22 +15,26 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        ToastConfig.onLevel { context, msg, level ->
-            when (level) {
-                LEVEL_ERROR -> {
+
+        ToastConfig.apply {
+
+            autoCancel = true
+
+            onToast { context: Context, msg: CharSequence ->
+                view =
                     View.inflate(context, R.layout.layout_toast_error, null)
                         .apply { tv_msg.text = msg }
-                }
-                else -> {
-                    null // 返回null表示不显示任何内容
+            }
+
+            onLevel { context, msg, level ->
+                when (level) {
+                    LEVEL_ERROR -> {
+                        view = View.inflate(context, R.layout.layout_toast_error, null)
+                            .apply { tv_msg.text = msg }
+                    }
                 }
             }
         }
 
-        ToastConfig.onToast { context: Context, msg: CharSequence ->
-
-            View.inflate(context, R.layout.layout_toast_error, null)
-                .apply { tv_msg.text = msg }
-        }
     }
 }
