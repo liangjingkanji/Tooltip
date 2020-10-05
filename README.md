@@ -32,7 +32,7 @@ allprojects {
 module 的 build.gradle
 
 ```groovy
-implementation 'com.github.liangjingkanji:Tooltip:1.0.4'
+implementation 'com.github.liangjingkanji:Tooltip:1.0.5'
 ```
 
 

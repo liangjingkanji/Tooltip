@@ -2,6 +2,7 @@ package com.drake.tooltip
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -27,17 +28,17 @@ fun Fragment.toast(msg: Int) {
     context?.toast(msg)
 }
 
-fun Context.toast(msg: CharSequence) {
+fun Context.toast(msg: CharSequence?) {
     ToastConfig.toast?.cancel()
     showDefault(msg)
 }
 
-fun FragmentActivity.toast(msg: CharSequence) {
+fun FragmentActivity.toast(msg: CharSequence?) {
     lifeEnabled()
     applicationContext.toast(msg)
 }
 
-fun Fragment.toast(msg: CharSequence) {
+fun Fragment.toast(msg: CharSequence?) {
     lifeEnabled()
     context?.toast(msg)
 }
@@ -46,14 +47,12 @@ fun Fragment.toast(msg: CharSequence) {
  * 在函数[ToastConfig.onToast]通过参数[level]来判断返回不同的View
  */
 @SuppressLint("ShowToast")
-fun Context.toast(msg: CharSequence, level: Int) {
-
+fun Context.toast(msg: CharSequence?, level: Int) {
+    msg ?: return
     ToastConfig.toast?.cancel()
-
     runMain {
         val toast = Toast(this).apply {
             ToastConfig.onLevel?.invoke(this, this@toast, msg, level)
-
             if (view == null) {
                 view = Toast.makeText(this@toast, msg, Toast.LENGTH_SHORT).view
             }
@@ -63,12 +62,12 @@ fun Context.toast(msg: CharSequence, level: Int) {
     }
 }
 
-fun FragmentActivity.toast(msg: CharSequence, level: Int) {
+fun FragmentActivity.toast(msg: CharSequence?, level: Int) {
     lifeEnabled()
     applicationContext.toast(msg, level)
 }
 
-fun Fragment.toast(msg: CharSequence, level: Int) {
+fun Fragment.toast(msg: CharSequence?, level: Int) {
     lifeEnabled()
     context?.toast(msg, level)
 }
@@ -76,24 +75,22 @@ fun Fragment.toast(msg: CharSequence, level: Int) {
 /**
  * 配置吐司
  */
-fun Context.toast(config: Toast.(Context) -> Unit) {
-
+fun Context.toast(block: Toast.(Context) -> View) {
     ToastConfig.toast?.cancel()
-
     runMain {
         ToastConfig.toast = Toast(this).apply {
-            config(this@toast)
+            view = block(this@toast)
         }
         ToastConfig.toast?.show()
     }
 }
 
-fun FragmentActivity.toast(config: Toast.(Context) -> Unit) {
+fun FragmentActivity.toast(block: Toast.(Context) -> View) {
     lifeEnabled()
-    applicationContext.toast(config)
+    applicationContext.toast(block)
 }
 
-fun Fragment.toast(config: Toast.(Context) -> Unit) {
+fun Fragment.toast(config: Toast.(Context) -> View) {
     context?.toast(config)
 }
 
@@ -111,16 +108,16 @@ fun Fragment.longToast(msg: Int) {
     context?.longToast(msg)
 }
 
-fun Context.longToast(msg: CharSequence) {
+fun Context.longToast(msg: CharSequence?) {
     showDefault(msg, false)
 }
 
-fun FragmentActivity.longToast(msg: CharSequence) {
+fun FragmentActivity.longToast(msg: CharSequence?) {
     lifeEnabled()
     applicationContext.longToast(msg)
 }
 
-fun Fragment.longToast(msg: CharSequence) {
+fun Fragment.longToast(msg: CharSequence?) {
     lifeEnabled()
     context?.longToast(msg)
 }
@@ -133,12 +130,10 @@ fun Fragment.longToast(msg: CharSequence) {
  * @param short 消息停留时间间隔
  */
 @SuppressLint("ShowToast")
-private fun Context?.showDefault(msg: CharSequence, short: Boolean = true) {
-    this ?: return
+private fun Context?.showDefault(msg: CharSequence?, short: Boolean = true) {
+    if (this == null || msg == null) return
     ToastConfig.toast?.cancel()
-
     runMain {
-
         ToastConfig.toast = if (ToastConfig.onToast != null) {
             Toast(this).apply {
                 duration = if (short) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
@@ -148,7 +143,6 @@ private fun Context?.showDefault(msg: CharSequence, short: Boolean = true) {
                 }
             }
         } else Toast.makeText(this, msg, Toast.LENGTH_SHORT)
-
         ToastConfig.toast?.show()
     }
 }
