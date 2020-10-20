@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@color/divider"
+    android:orientation="vertical"
+    android:showDividers="middle"
+    tools:context=".fragment.BubbleDialogFragment">
+
+    <TextView
+        android:id="@+id/tv_show"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="显示" />
+
+    <TextView
+        android:id="@+id/tv_thread"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="异步线程显示" />
+
+    <TextView
+        android:id="@+id/tv_specify_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="指定加载框标题" />
+
+</LinearLayout>

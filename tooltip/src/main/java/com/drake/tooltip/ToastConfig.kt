@@ -10,7 +10,6 @@ object ToastConfig {
     internal var toast: Toast? = null
     internal var onLevel: (Toast.(context: Context, msg: CharSequence, level: Int) -> Unit)? = null
     internal var onToast: (Toast.(context: Context, msg: CharSequence) -> Unit)? = null
-    var autoCancel = false
 
     fun cancel() {
         toast?.cancel()
@@ -23,7 +22,6 @@ object ToastConfig {
         onLevel = block
     }
 
-
     /**
      * 全局吐司的配置
      */
@@ -32,7 +30,6 @@ object ToastConfig {
     }
 
 }
-
 
 internal fun runMain(block: () -> Unit) {
     if (Looper.myLooper() == Looper.getMainLooper()) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loading"
+    android:layout_width="wrap_content"
+    android:layout_height="84dp"
+    android:layout_gravity="center"
+    android:alpha="0.9"
+    android:background="@drawable/bg_bubble_dialog"
+    android:gravity="center"
+    android:minWidth="84dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_loading"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/ic_bubble_loading" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:singleLine="true"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        tools:text="@string/bubble_loading_title" />
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@color/divider"
+    android:orientation="vertical"
+    android:showDividers="middle"
+    tools:context=".fragment.ToastFragment">
+
+    <TextView
+        android:id="@+id/tv_short"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="短时间显示" />
+
+    <TextView
+        android:id="@+id/tv_long"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="长时间显示" />
+
+    <TextView
+        android:id="@+id/tv_config"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="单例配置吐司" />
+
+    <TextView
+        android:id="@+id/tv_level"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="?selectableItemBackground"
+        android:gravity="center"
+        android:text="全局等级吐司" />
+
+</LinearLayout>

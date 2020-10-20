@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 
 
+//<editor-fold desc="短吐司">
 fun Context.toast(msg: Int) {
     ToastConfig.toast?.cancel()
     showDefault(getString(msg))
@@ -18,13 +19,11 @@ fun Context.toast(msg: Int) {
 
 
 fun FragmentActivity.toast(msg: Int) {
-    lifeEnabled()
     applicationContext.toast(msg)
 }
 
 
 fun Fragment.toast(msg: Int) {
-    lifeEnabled()
     context?.toast(msg)
 }
 
@@ -34,15 +33,15 @@ fun Context.toast(msg: CharSequence?) {
 }
 
 fun FragmentActivity.toast(msg: CharSequence?) {
-    lifeEnabled()
     applicationContext.toast(msg)
 }
 
 fun Fragment.toast(msg: CharSequence?) {
-    lifeEnabled()
     context?.toast(msg)
 }
+//</editor-fold>
 
+//<editor-fold desc="等级吐司">
 /**
  * 在函数[ToastConfig.onToast]通过参数[level]来判断返回不同的View
  */
@@ -63,17 +62,17 @@ fun Context.toast(msg: CharSequence?, level: Int) {
 }
 
 fun FragmentActivity.toast(msg: CharSequence?, level: Int) {
-    lifeEnabled()
     applicationContext.toast(msg, level)
 }
 
 fun Fragment.toast(msg: CharSequence?, level: Int) {
-    lifeEnabled()
     context?.toast(msg, level)
 }
+//</editor-fold>
 
+//<editor-fold desc="自定义视图">
 /**
- * 配置吐司
+ * 函数参数要求返回一个视图
  */
 fun Context.toast(block: Toast.(Context) -> View) {
     ToastConfig.toast?.cancel()
@@ -86,25 +85,24 @@ fun Context.toast(block: Toast.(Context) -> View) {
 }
 
 fun FragmentActivity.toast(block: Toast.(Context) -> View) {
-    lifeEnabled()
     applicationContext.toast(block)
 }
 
 fun Fragment.toast(config: Toast.(Context) -> View) {
     context?.toast(config)
 }
+//</editor-fold>
 
+//<editor-fold desc="长吐司">
 fun Context.longToast(msg: Int) {
     longToast(getString(msg))
 }
 
 fun FragmentActivity.longToast(msg: Int) {
-    lifeEnabled()
     applicationContext.longToast(msg)
 }
 
 fun Fragment.longToast(msg: Int) {
-    lifeEnabled()
     context?.longToast(msg)
 }
 
@@ -113,14 +111,13 @@ fun Context.longToast(msg: CharSequence?) {
 }
 
 fun FragmentActivity.longToast(msg: CharSequence?) {
-    lifeEnabled()
     applicationContext.longToast(msg)
 }
 
 fun Fragment.longToast(msg: CharSequence?) {
-    lifeEnabled()
     context?.longToast(msg)
 }
+//</editor-fold>
 
 
 /**
@@ -147,14 +144,17 @@ private fun Context?.showDefault(msg: CharSequence?, short: Boolean = true) {
     }
 }
 
-private fun LifecycleOwner.lifeEnabled() {
-    if (ToastConfig.autoCancel) {
-        lifecycle.addObserver(object : LifecycleEventObserver {
-            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                if (event == Lifecycle.Event.ON_PAUSE) {
-                    ToastConfig.cancel()
-                }
+/**
+ * 跟随生命周期自动取消所有吐司
+ *
+ * @see Lifecycle.Event.ON_PAUSE 默认为不可见时自动取消吐司
+ */
+private fun LifecycleOwner.lifeToast(lifeEvent: Lifecycle.Event = Lifecycle.Event.ON_PAUSE) {
+    lifecycle.addObserver(object : LifecycleEventObserver {
+        override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+            if (event == lifeEvent) {
+                ToastConfig.cancel()
             }
-        })
-    }
+        }
+    })
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main.xml"
+    app:startDestination="@id/toast">
+
+    <fragment
+        android:id="@+id/bubble_dialog"
+        android:name="com.drake.tooltip.sample.fragment.BubbleDialogFragment"
+        android:label="BubbleDialog"
+        tools:layout="@layout/fragment_bubble_dialog" />
+    <fragment
+        android:id="@+id/toast"
+        android:name="com.drake.tooltip.sample.fragment.ToastFragment"
+        android:label="吐司"
+        tools:layout="@layout/fragment_toast" />
+</navigation>
