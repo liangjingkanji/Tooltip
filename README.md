@@ -1,22 +1,36 @@
-# Tooltip
+## Tooltip
 
-用于支持各种提示工具
+<p align="center"><img src="https://i.imgur.com/HTSYi1S.png" width="25%"/></p>
 
-暂时只支持
+<p align="center"><strong>用于支持各种提示工具</strong></p>
 
--   Toast
+<p align="center"><a href="http://liangjingkanji.github.io/Tooltip/">使用文档</a></p>
 
-任何框架问题加群回复: [752854893](https://jq.qq.com/?_wv=1027&k=vWsXSNBJ)
+<p align="center"><img src="https://i.imgur.com/ryI7veS.jpg" width="170"/></p>
+
+<p align="center">
+<a href="https://jitpack.io/#liangjingkanji/Tooltip"><img src="https://jitpack.io/v/liangjingkanji/Tooltip.svg"/></a>
+<img src="https://img.shields.io/badge/language-kotlin-orange.svg"/>
+<img src="https://img.shields.io/badge/license-Apache-blue"/>
+<a href="https://jq.qq.com/?_wv=1027&k=vWsXSNBJ"><img src="https://img.shields.io/badge/QQ群-752854893-blue"/></a>
+</p>
 
 
-TODO
 
--   SnackBar
--   iOS风格吐司
+## 介绍
 
-## 安装
+本库集成和简化常用提醒工具
 
-project 的 build.gradle
+| 提示         | 描述                                                         |
+| ------------ | ------------------------------------------------------------ |
+| Toast        | 异步线程显示<br />连续弹出吐司不会重叠<br />自定义视图<br />全局等级自定义吐司 |
+| BubbleDialog | iOS风格加载对话框                                            |
+
+
+
+<br>
+
+在项目根目录的 build.gradle 添加仓库
 
 ```groovy
 allprojects {
@@ -27,115 +41,27 @@ allprojects {
 }
 ```
 
-
-
-module 的 build.gradle
+在 module 的 build.gradle 添加依赖
 
 ```groovy
-implementation 'com.github.liangjingkanji:Tooltip:1.0.5'
+implementation 'com.github.liangjingkanji:Tooltip:1.1.0'
 ```
 
+<br>
 
-
-
-
-## Toast
-
-目前最强吐司工具
-
-### 特性
-
--   异步线程显示吐司
-
--   连续弹出吐司不会重叠, 会自动取消上个吐司显示
-
--   Kotlin特性
-
--   自定义视图
-
--   全局等级吐司自定义
-
-    
-
-
-
-### 显示吐司
-
-```kotlin
-// 短时间显示吐司
-toast(message)
-
-// 长时间显示吐司
-longToast(message)
-
-// 配置Toast
-toast {
-    setGravity(Gravity.CENTER, 0, 0)
-    view = ProgressBar(this@MainActivity)
-}
-```
-
-
-
-### 全局等级吐司
-
-在某些时候可能需要配置一些错误提醒样式的吐司或者正确样式的吐司
-
-<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g9179i3gqrj30u01qsjsi.jpg" alt="Screenshot_20191117-180640__01" style="zoom: 25%;" />
-
-在Application中配置全局等级吐司的视图样式
-
-```kotlin
-class App : Application() {
-
-    companion object {
-        const val LEVEL_ERROR = 1
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        ToastConfig.onLevel { msg, level ->
-            when (level) {
-                LEVEL_ERROR -> {
-                    view = View.inflate(this@App, R.layout.layout_toast_error, null).apply { tv_msg.text = msg }
-                }
-            }
-        }
-    }
-}
-```
-
-
-
-使用
+## License
 
 ```
- toast("这是一条很长的错误消息", App.LEVEL_ERROR)
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
-
-
-### 全局默认吐司
-
-可以替换掉系统默认的吐司样式, 使用场景, 某些国产系统例如小米吐司默认会加上应用名称这个时候就可以自定义吐司样式就不会存在应用名称
-
-```kotlin
-ToastConfig.onToast { context: Context, msg: CharSequence ->
-
-                     view = View.inflate(context, R.layout.layout_toast_error, null)
-                     .apply { tv_msg.text = msg }
-                    }
-```
-
-
-
-设置自动当界面隐藏时自动取消吐司
-
-```
-ToastConfig.autoCancel = true
-```
-
-
-
-详情可以看Sample
