@@ -9,13 +9,7 @@ toast("提示")
 
 <img src="https://i.imgur.com/tyGGzTV.png" width="200"/>
 
-在以下对象中可以直接使用`toast`
-
-| 函数 |
-|-|
-| Context.toast |
-| FragmentActivity.toast |
-| Fragment.toast |
+在任何位置都可以直接使用`toast`
 
 ## 显示
 
