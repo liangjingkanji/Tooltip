@@ -1,12 +1,13 @@
-package com.drake.tooltip
+package com.drake.tooltip.internal
 
 import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import com.drake.tooltip.ToastConfig
 
-class InitContentProvider : ContentProvider() {
+internal class InitContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         ToastConfig.app = context?.applicationContext as? Application ?: return false
         return false
