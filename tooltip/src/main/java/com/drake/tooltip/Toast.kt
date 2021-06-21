@@ -11,12 +11,10 @@ import androidx.lifecycle.LifecycleOwner
 
 //<editor-fold desc="短吐司">
 fun toast(msg: Int) {
-    ToastConfig.toast?.cancel()
     showDefault(ToastConfig.app.getString(msg))
 }
 
 fun toast(msg: CharSequence?) {
-    ToastConfig.toast?.cancel()
     showDefault(msg)
 }
 
