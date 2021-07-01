@@ -90,18 +90,3 @@ private fun showDefault(msg: CharSequence?, short: Boolean = true) {
         ToastConfig.toast?.show()
     }
 }
-
-/**
- * 跟随生命周期自动取消所有吐司
- *
- * @see Lifecycle.Event.ON_PAUSE 默认为不可见时自动取消吐司
- */
-private fun LifecycleOwner.lifeToast(lifeEvent: Lifecycle.Event = Lifecycle.Event.ON_PAUSE) {
-    lifecycle.addObserver(object : LifecycleEventObserver {
-        override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-            if (event == lifeEvent) {
-                ToastConfig.cancel()
-            }
-        }
-    })
-}
