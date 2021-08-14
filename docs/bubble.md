@@ -1,6 +1,6 @@
 快速创建美观的iOS风格的`Dialog`加载对话框
 
-<img src="https://i.imgur.com/YDvw8Ks.gif" width="250"/>
+<img src="https://i.loli.net/2021/08/14/8eDp7Oz2CQT9Jcq.gif" width="250"/>
 
 ```kotlin
 BubbleDialog(this).show()

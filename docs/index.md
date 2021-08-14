@@ -1,13 +1,13 @@
 ## 使用
 
-<img src="https://i.imgur.com/HzIJeyO.gif" width="250"/>
+<img src="https://i.loli.net/2021/08/14/R5Gg8kKBeTft9PL.gif" width="250"/>
 
 使用`toast`函数显示吐司
 ```kotlin
 toast("提示")
 ```
 
-<img src="https://i.imgur.com/tyGGzTV.png" width="200"/>
+<img src="https://i.loli.net/2021/08/14/5PUJibaVXKW3yNL.png" width="200"/>
 
 在任何位置都可以直接使用`toast`
 
