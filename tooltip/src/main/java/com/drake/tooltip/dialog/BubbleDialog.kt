@@ -39,4 +39,17 @@ class BubbleDialog(
             super.show()
         }
     }
+
+    /**
+     * 更新标题文本
+     */
+    fun updateTitle(text: String) {
+        if (isShowing) {
+            runMain {
+                tv_title.text = text
+            }
+        } else {
+            title = text
+        }
+    }
 }
