@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.drake.tooltip.dialog.BubbleDialog
 import com.drake.tooltip.sample.R
 import kotlinx.android.synthetic.main.fragment_bubble_dialog.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
 class BubbleDialogFragment : Fragment() {
@@ -39,6 +43,19 @@ class BubbleDialogFragment : Fragment() {
             val bubbleDialog = BubbleDialog(requireContext(), "清除缓存中")
             waitDismiss(bubbleDialog)
             bubbleDialog.show()
+        }
+
+        tv_update_title.setOnClickListener {
+            val bubbleDialog = BubbleDialog(requireContext(), "标题0")
+            waitDismiss(bubbleDialog)
+            lifecycleScope.launch(Dispatchers.IO) {
+                bubbleDialog.updateTitle("标题1")
+                bubbleDialog.show()
+                delay(500L)
+                bubbleDialog.updateTitle("标题2")
+                delay(500L)
+                bubbleDialog.updateTitle("标题3")
+            }
         }
     }
 
