@@ -4,14 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
 
 
 //<editor-fold desc="短吐司">
 fun toast(msg: Int) {
-    showDefault(ToastConfig.app.getString(msg))
+    showDefault(ToastConfig.application.getString(msg))
 }
 
 fun toast(msg: CharSequence?) {
@@ -29,10 +26,10 @@ fun toast(msg: CharSequence?, level: Int) {
     msg ?: return
     ToastConfig.toast?.cancel()
     runMain {
-        val toast = Toast(ToastConfig.app).apply {
-            ToastConfig.onLevel?.invoke(this, ToastConfig.app, msg, level)
+        val toast = Toast(ToastConfig.application).apply {
+            ToastConfig.onLevel?.invoke(this, ToastConfig.application, msg, level)
             if (view == null) {
-                view = Toast.makeText(ToastConfig.app, msg, Toast.LENGTH_SHORT).view
+                view = Toast.makeText(ToastConfig.application, msg, Toast.LENGTH_SHORT).view
             }
         }
         ToastConfig.toast = toast
@@ -48,8 +45,8 @@ fun toast(msg: CharSequence?, level: Int) {
 fun toast(block: Toast.(Context) -> View) {
     ToastConfig.toast?.cancel()
     runMain {
-        ToastConfig.toast = Toast(ToastConfig.app).apply {
-            view = block(ToastConfig.app)
+        ToastConfig.toast = Toast(ToastConfig.application).apply {
+            view = block(ToastConfig.application)
         }
         ToastConfig.toast?.show()
     }
@@ -58,7 +55,7 @@ fun toast(block: Toast.(Context) -> View) {
 
 //<editor-fold desc="长吐司">
 fun longToast(msg: Int) {
-    longToast(ToastConfig.app.getString(msg))
+    longToast(ToastConfig.application.getString(msg))
 }
 
 fun longToast(msg: CharSequence?) {
@@ -79,14 +76,14 @@ private fun showDefault(msg: CharSequence?, short: Boolean = true) {
     ToastConfig.toast?.cancel()
     runMain {
         ToastConfig.toast = if (ToastConfig.onToast != null) {
-            Toast(ToastConfig.app).apply {
+            Toast(ToastConfig.application).apply {
                 duration = if (short) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
-                ToastConfig.onToast?.invoke(this, ToastConfig.app, msg)
+                ToastConfig.onToast?.invoke(this, ToastConfig.application, msg)
                 if (view == null) {
-                    view = Toast.makeText(ToastConfig.app, msg, Toast.LENGTH_SHORT).view
+                    view = Toast.makeText(ToastConfig.application, msg, Toast.LENGTH_SHORT).view
                 }
             }
-        } else Toast.makeText(ToastConfig.app, msg, Toast.LENGTH_SHORT)
+        } else Toast.makeText(ToastConfig.application, msg, Toast.LENGTH_SHORT)
         ToastConfig.toast?.show()
     }
 }

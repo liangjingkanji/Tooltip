@@ -13,7 +13,7 @@ object ToastConfig {
     internal var toast: Toast? = null
     internal var onLevel: (Toast.(context: Context, msg: CharSequence, level: Int) -> Unit)? = null
     internal var onToast: (Toast.(context: Context, msg: CharSequence) -> Unit)? = null
-    internal lateinit var app: Application
+    lateinit var application: Application
 
     fun cancel() {
         toast?.cancel()

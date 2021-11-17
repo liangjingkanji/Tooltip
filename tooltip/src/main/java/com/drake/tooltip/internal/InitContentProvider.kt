@@ -9,7 +9,7 @@ import com.drake.tooltip.ToastConfig
 
 internal class InitContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-        ToastConfig.app = context?.applicationContext as? Application ?: return false
+        ToastConfig.application = context?.applicationContext as? Application ?: return false
         return false
     }
 
