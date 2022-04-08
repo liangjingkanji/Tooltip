@@ -1,89 +1,72 @@
+/*
+ * Copyright (C) 2018 Drake, https://github.com/liangjingkanji
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.drake.tooltip
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.view.View
-import android.widget.Toast
 
 
-//<editor-fold desc="短吐司">
-fun toast(msg: Int) {
-    showDefault(ToastConfig.application.getString(msg))
-}
-
-fun toast(msg: CharSequence?) {
-    showDefault(msg)
-}
-
-//</editor-fold>
-
-//<editor-fold desc="等级吐司">
 /**
- * 在函数[ToastConfig.onToast]通过参数[level]来判断返回不同的View
+ * 短时间显示的吐司
+ * @param msg 吐司内容
+ * @param tag 标记
+ */
+fun toast(msg: Int, tag: Any? = null) {
+    showToast(ToastConfig.application.getString(msg), 0, tag)
+}
+
+/**
+ * 短时间显示的吐司
+ * @param msg 吐司内容
+ * @param tag 标记
+ */
+fun toast(msg: CharSequence?, tag: Any? = null) {
+    showToast(msg, 0, tag)
+}
+
+/**
+ * 长时间显示的吐司
+ * @param msg 吐司内容
+ * @param tag 标记
+ */
+fun longToast(msg: Int, tag: Any? = null) {
+    longToast(ToastConfig.application.getString(msg), tag)
+}
+
+/**
+ * 长时间显示的吐司
+ * @param msg 吐司内容
+ * @param tag 标记
+ */
+fun longToast(msg: CharSequence?, tag: Any? = null) {
+    showToast(msg, 1, tag)
+}
+
+/**
+ * 显示吐司
+ * @param msg 吐司内容
+ * @param duration 吐司显示时长 0 短时间显示 1 长时间显示
+ * @param tag 标记
  */
 @SuppressLint("ShowToast")
-fun toast(msg: CharSequence?, level: Int) {
+private fun showToast(msg: CharSequence?, duration: Int, tag: Any?) {
     msg ?: return
     ToastConfig.toast?.cancel()
     runMain {
-        val toast = Toast(ToastConfig.application).apply {
-            ToastConfig.onLevel?.invoke(this, ToastConfig.application, msg, level)
-            if (view == null) {
-                view = Toast.makeText(ToastConfig.application, msg, Toast.LENGTH_SHORT).view
-            }
-        }
-        ToastConfig.toast = toast
-        ToastConfig.toast?.show()
-    }
-}
-//</editor-fold>
-
-//<editor-fold desc="自定义视图">
-/**
- * 函数参数要求返回一个视图
- */
-fun toast(block: Toast.(Context) -> View) {
-    ToastConfig.toast?.cancel()
-    runMain {
-        ToastConfig.toast = Toast(ToastConfig.application).apply {
-            view = block(ToastConfig.application)
-        }
-        ToastConfig.toast?.show()
-    }
-}
-//</editor-fold>
-
-//<editor-fold desc="长吐司">
-fun longToast(msg: Int) {
-    longToast(ToastConfig.application.getString(msg))
-}
-
-fun longToast(msg: CharSequence?) {
-    showDefault(msg, false)
-}
-//</editor-fold>
-
-
-/**
- * 显示常用默认的吐司或者全局设置的吐司样式
- *
- * @param msg 吐司内容
- * @param short 消息停留时间间隔
- */
-@SuppressLint("ShowToast")
-private fun showDefault(msg: CharSequence?, short: Boolean = true) {
-    if (msg == null) return
-    ToastConfig.toast?.cancel()
-    runMain {
-        ToastConfig.toast = if (ToastConfig.onToast != null) {
-            Toast(ToastConfig.application).apply {
-                duration = if (short) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
-                ToastConfig.onToast?.invoke(this, ToastConfig.application, msg)
-                if (view == null) {
-                    view = Toast.makeText(ToastConfig.application, msg, Toast.LENGTH_SHORT).view
-                }
-            }
-        } else Toast.makeText(ToastConfig.application, msg, Toast.LENGTH_SHORT)
+        ToastConfig.toast = ToastConfig.toastFactory.onCreate(ToastConfig.application, msg, duration, tag)
         ToastConfig.toast?.show()
     }
 }

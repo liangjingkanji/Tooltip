@@ -14,16 +14,35 @@
  * limitations under the License.
  */
 
-package com.drake.tooltip.sample
+package com.drake.tooltip.interfaces
 
 import android.app.Application
+import android.widget.Toast
 import com.drake.tooltip.ToastConfig
 
-class App : Application() {
+interface ToastFactory {
 
-    override fun onCreate() {
-        super.onCreate()
-        ToastConfig.initialize(this)
-        // ToastConfig.initialize(this, ToastGravityFactory()) // 屏幕居中显示吐司
+    companion object DEFAULT : ToastFactory {
+        override fun onCreate(
+            context: Application,
+            message: CharSequence,
+            duration: Int,
+            tag: Any?
+        ): Toast? {
+            return Toast.makeText(ToastConfig.application, message, duration)
+        }
     }
+
+    /**
+     * 创建吐司
+     * @param context Application
+     * @param message 吐司内容
+     * @param tag 吐司标签
+     */
+    fun onCreate(
+        context: Application,
+        message: CharSequence,
+        duration: Int,
+        tag: Any? = null
+    ): Toast?
 }

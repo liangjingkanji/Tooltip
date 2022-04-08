@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:divider="@color/divider"
-    android:orientation="vertical"
-    android:showDividers="middle"
-    tools:context=".fragment.ToastFragment">
+<!--
+  ~ Copyright (C) 2018 Drake, https://github.com/liangjingkanji
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
 
-    <TextView
-        android:id="@+id/tv_short"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:foreground="?selectableItemBackground"
-        android:gravity="center"
-        android:text="短时间显示" />
+        android:layout_height="match_parent"
+        android:divider="@color/divider"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        tools:context=".fragment.ToastFragment">
 
-    <TextView
-        android:id="@+id/tv_long"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:foreground="?selectableItemBackground"
-        android:gravity="center"
-        android:text="长时间显示" />
+        <TextView
+            android:id="@+id/tvShort"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:text="短时间显示" />
 
-    <TextView
-        android:id="@+id/tv_config"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:foreground="?selectableItemBackground"
-        android:gravity="center"
-        android:text="单例配置吐司" />
+        <TextView
+            android:id="@+id/tvLong"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:text="长时间显示" />
 
-    <TextView
-        android:id="@+id/tv_level"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:foreground="?selectableItemBackground"
-        android:gravity="center"
-        android:text="全局等级吐司" />
+        <TextView
+            android:id="@+id/tvConfig"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:text="居中显示吐司" />
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
