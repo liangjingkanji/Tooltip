@@ -27,13 +27,13 @@ import com.drake.tooltip.R
 /**
  * 屏幕居中显示吐司
  * @param gravity 对齐方式
- * @param layout 吐司布局
+ * @param layout 吐司布局, 要求消息内容TextView的ID使用[@android:id/message]
  * @param xOffset x轴偏移量
  * @param yOffset y轴偏移量
  */
-open class ToastGravityFactory(
+open class ToastGravityFactory @JvmOverloads constructor(
     val gravity: Int = Gravity.CENTER,
-    @LayoutRes val layout: Int = R.layout.layout_gravity_toast,
+    @LayoutRes val layout: Int = R.layout.layout_toast_gravity,
     val xOffset: Int = 0,
     val yOffset: Int = 0,
 ) : ToastFactory {

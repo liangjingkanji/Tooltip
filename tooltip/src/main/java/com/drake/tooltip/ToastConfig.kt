@@ -35,6 +35,7 @@ object ToastConfig {
      * 如果应用存在多进程使用则必须使用本方法初始化, 否则是可选
      * @param toastFactory 构建吐司
      */
+    @JvmOverloads
     fun initialize(application: Application, toastFactory: ToastFactory? = null) {
         this.application = application
         if (toastFactory != null) {

@@ -17,22 +17,25 @@
 package com.drake.tooltip
 
 import android.annotation.SuppressLint
+import androidx.annotation.StringRes
 
 
 /**
  * 短时间显示的吐司
  * @param msg 吐司内容
- * @param tag 标记
+ * @param tag 标记, 标记用于[com.drake.tooltip.interfaces.ToastFactory]区分吐司
  */
-fun toast(msg: Int, tag: Any? = null) {
+@JvmOverloads
+fun toast(@StringRes msg: Int, tag: Any? = null) {
     showToast(ToastConfig.application.getString(msg), 0, tag)
 }
 
 /**
  * 短时间显示的吐司
  * @param msg 吐司内容
- * @param tag 标记
+ * @param tag 标记, 标记用于[com.drake.tooltip.interfaces.ToastFactory]区分吐司
  */
+@JvmOverloads
 fun toast(msg: CharSequence?, tag: Any? = null) {
     showToast(msg, 0, tag)
 }
@@ -40,17 +43,19 @@ fun toast(msg: CharSequence?, tag: Any? = null) {
 /**
  * 长时间显示的吐司
  * @param msg 吐司内容
- * @param tag 标记
+ * @param tag 标记, 标记用于[com.drake.tooltip.interfaces.ToastFactory]区分吐司
  */
-fun longToast(msg: Int, tag: Any? = null) {
+@JvmOverloads
+fun longToast(@StringRes msg: Int, tag: Any? = null) {
     longToast(ToastConfig.application.getString(msg), tag)
 }
 
 /**
  * 长时间显示的吐司
  * @param msg 吐司内容
- * @param tag 标记
+ * @param tag 标记, 标记用于[com.drake.tooltip.interfaces.ToastFactory]区分吐司
  */
+@JvmOverloads
 fun longToast(msg: CharSequence?, tag: Any? = null) {
     showToast(msg, 1, tag)
 }
@@ -59,7 +64,7 @@ fun longToast(msg: CharSequence?, tag: Any? = null) {
  * 显示吐司
  * @param msg 吐司内容
  * @param duration 吐司显示时长 0 短时间显示 1 长时间显示
- * @param tag 标记
+ * @param tag 标记, 标记用于[com.drake.tooltip.interfaces.ToastFactory]区分吐司
  */
 @SuppressLint("ShowToast")
 private fun showToast(msg: CharSequence?, duration: Int, tag: Any?) {
