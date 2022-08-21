@@ -16,7 +16,7 @@
 
 package com.drake.tooltip.interfaces
 
-import android.app.Application
+import android.content.Context
 import android.widget.Toast
 import com.drake.tooltip.ToastConfig
 
@@ -24,12 +24,12 @@ interface ToastFactory {
 
     companion object DEFAULT : ToastFactory {
         override fun onCreate(
-            context: Application,
+            context: Context,
             message: CharSequence,
             duration: Int,
             tag: Any?
         ): Toast? {
-            return Toast.makeText(ToastConfig.application, message, duration)
+            return Toast.makeText(ToastConfig.context, message, duration)
         }
     }
 
@@ -40,7 +40,7 @@ interface ToastFactory {
      * @param tag 吐司标签
      */
     fun onCreate(
-        context: Application,
+        context: Context,
         message: CharSequence,
         duration: Int,
         tag: Any? = null

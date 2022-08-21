@@ -16,7 +16,7 @@
 
 package com.drake.tooltip.interfaces
 
-import android.app.Application
+import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
@@ -45,7 +45,7 @@ open class ToastGravityFactory @JvmOverloads constructor(
      * @param tag 吐司标签
      */
     override fun onCreate(
-        context: Application,
+        context: Context,
         message: CharSequence,
         duration: Int,
         tag: Any?

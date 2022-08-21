@@ -25,7 +25,7 @@ import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import androidx.annotation.StyleRes
 import com.drake.tooltip.R
-import com.drake.tooltip.runMain
+import com.drake.tooltip.internal.ThreadUtils.runMain
 import kotlinx.android.synthetic.main.layout_bubble_dialog.*
 
 /**

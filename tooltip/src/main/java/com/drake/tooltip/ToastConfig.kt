@@ -18,6 +18,7 @@ package com.drake.tooltip
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import android.widget.Toast
 import com.drake.tooltip.interfaces.ToastFactory
 
@@ -25,9 +26,10 @@ import com.drake.tooltip.interfaces.ToastFactory
 object ToastConfig {
 
     internal var toast: Toast? = null
-    internal lateinit var application: Application
+    internal lateinit var context: Context
 
     /** 构建吐司 */
+    @JvmField
     var toastFactory: ToastFactory = ToastFactory
 
     /**
@@ -36,14 +38,16 @@ object ToastConfig {
      * @param toastFactory 构建吐司
      */
     @JvmOverloads
+    @JvmStatic
     fun initialize(application: Application, toastFactory: ToastFactory? = null) {
-        this.application = application
+        this.context = application
         if (toastFactory != null) {
             this.toastFactory = toastFactory
         }
     }
 
     /** 取消吐司显示 */
+    @JvmStatic
     fun cancel() {
         toast?.cancel()
     }

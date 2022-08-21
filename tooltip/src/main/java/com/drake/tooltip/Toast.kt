@@ -18,6 +18,7 @@ package com.drake.tooltip
 
 import android.annotation.SuppressLint
 import androidx.annotation.StringRes
+import com.drake.tooltip.internal.ThreadUtils.runMain
 
 
 /**
@@ -27,7 +28,7 @@ import androidx.annotation.StringRes
  */
 @JvmOverloads
 fun toast(@StringRes msg: Int, tag: Any? = null) {
-    showToast(ToastConfig.application.getString(msg), 0, tag)
+    showToast(ToastConfig.context.getString(msg), 0, tag)
 }
 
 /**
@@ -47,7 +48,7 @@ fun toast(msg: CharSequence?, tag: Any? = null) {
  */
 @JvmOverloads
 fun longToast(@StringRes msg: Int, tag: Any? = null) {
-    longToast(ToastConfig.application.getString(msg), tag)
+    longToast(ToastConfig.context.getString(msg), tag)
 }
 
 /**
@@ -71,7 +72,7 @@ private fun showToast(msg: CharSequence?, duration: Int, tag: Any?) {
     msg ?: return
     ToastConfig.toast?.cancel()
     runMain {
-        ToastConfig.toast = ToastConfig.toastFactory.onCreate(ToastConfig.application, msg, duration, tag)
+        ToastConfig.toast = ToastConfig.toastFactory.onCreate(ToastConfig.context, msg, duration, tag)
         ToastConfig.toast?.show()
     }
 }
