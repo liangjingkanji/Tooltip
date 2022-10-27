@@ -28,12 +28,12 @@ BubbleDialog(this, "正在清除中").show()
 所有默认的`scopeDialog`都会使用全局设置的对话框
 
 ```kotlin
-initNet("域名") {
-    onDialog { // lambda返回一个Dialog对象
-        ProgressDialog(it).apply { // it 为 FragmentActivity
-            setMessage("正在努力请求中")
+NetConfig.initialize("https://github.com/liangjingkanji/Net/", this) {
+        setDialogFactory { // 全局加载对话框
+            ProgressDialog(it).apply {
+                setMessage("我是全局自定义的加载对话框...")
+            }
         }
-    }
 }
 ```
 
