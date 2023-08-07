@@ -23,10 +23,11 @@ import android.content.Context
 import android.graphics.drawable.RotateDrawable
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.StyleRes
 import com.drake.tooltip.R
 import com.drake.tooltip.internal.ThreadUtils.runMain
-import kotlinx.android.synthetic.main.layout_bubble_dialog.*
 
 /**
  * iOS风格的加载对话框
@@ -34,15 +35,18 @@ import kotlinx.android.synthetic.main.layout_bubble_dialog.*
  */
 class BubbleDialog @JvmOverloads constructor(
     context: Context,
-    var title: String = context.getString(R.string.bubble_loading_title),
+    private var title: String = context.getString(R.string.bubble_loading_title),
     @StyleRes themeResId: Int = R.style.BubbleDialog,
 ) : Dialog(context, themeResId) {
+
+    private var tvTitle: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_bubble_dialog)
-        tv_title.text = title
-        val rotateDrawable = iv_loading.background as RotateDrawable
+        tvTitle = findViewById(R.id.tv_title)
+        tvTitle?.text = title
+        val rotateDrawable = findViewById<ImageView>(R.id.iv_loading).background as RotateDrawable
         ObjectAnimator.ofInt(rotateDrawable, "level", 0, 10000).apply {
             duration = 2000
             repeatCount = ValueAnimator.INFINITE
@@ -63,7 +67,7 @@ class BubbleDialog @JvmOverloads constructor(
     fun updateTitle(text: String) {
         if (isShowing) {
             runMain {
-                tv_title.text = text
+                tvTitle?.text = text
             }
         } else {
             title = text
