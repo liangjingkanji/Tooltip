@@ -1,18 +1,18 @@
-快速创建美观的iOS风格的`Dialog`加载对话框
+快速创建iOS风格`Dialog`加载对话框
 
 <img src="https://i.loli.net/2021/08/14/8eDp7Oz2CQT9Jcq.gif" width="250"/>
 
 ```kotlin
-BubbleDialog(this).show()
+BubbleDialog(this).show() // 使用默认标题
+BubbleDialog(this, "正在清除中").show() // 修改标题
 ```
 
-指定标题
-
+更新标题
 ```kotlin
-BubbleDialog(this, "正在清除中").show()
+dialog.updateTitle("清除完毕")
 ```
 
-通过覆写`strings`也可以修改默认的标题
+修改默认标题, 在项目`values`目录的strings.xml添加以下
 
 ```kotlin
 <string name="bubble_loading_title">请稍等...</string>
@@ -21,23 +21,23 @@ BubbleDialog(this, "正在清除中").show()
 
 ## 自动化
 
-如果你想网络请求或异步任务自动显示和隐藏对话框请使用[Net](https://github.com/liangjingkanji/Net)网络请求库(Android上最好的网络请求框架), 这里介绍下简单的使用
+使用[Net](https://github.com/liangjingkanji/Net)网络请求框架可以实现自动显示/隐藏对话框
 
-### 1) 全局设置
+### 1. 全局配置
 
-所有默认的`scopeDialog`都会使用全局设置的对话框
+所有`scopeDialog`默认使用全局对话框
 
 ```kotlin
 NetConfig.initialize("https://github.com/liangjingkanji/Net/", this) {
-        setDialogFactory { // 全局加载对话框
-            ProgressDialog(it).apply {
-                setMessage("我是全局自定义的加载对话框...")
-            }
+    setDialogFactory {
+        ProgressDialog(it).apply {
+            setMessage("我是全局自定义的加载对话框...")
         }
+    }
 }
 ```
 
-### 2) 使用
+### 2. 使用
 
 ```kotlin
 scopeDialog {
@@ -48,9 +48,9 @@ scopeDialog {
 }
 ```
 
-### 3) 单例设置
+### 3. 单例配置
 
-如果某个任务需要单独的Dialog可以创建作为参数传入
+指定当前网络请求的加载对话框
 
 ```kotlin
 val dialog = BubbleDialog(context, "清除缓存中")

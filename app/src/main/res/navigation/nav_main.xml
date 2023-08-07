@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 Drake, https://github.com/liangjingkanji
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +22,12 @@
 
     <fragment
         android:id="@+id/bubble_dialog"
-        android:name="com.drake.tooltip.sample.fragment.BubbleDialogFragment"
+        android:name="com.drake.tooltip.sample.ui.fragment.BubbleDialogFragment"
         android:label="BubbleDialog"
         tools:layout="@layout/fragment_bubble_dialog" />
     <fragment
         android:id="@+id/toast"
-        android:name="com.drake.tooltip.sample.fragment.ToastFragment"
+        android:name="com.drake.tooltip.sample.ui.fragment.ToastFragment"
         android:label="吐司"
         tools:layout="@layout/fragment_toast" />
 </navigation>

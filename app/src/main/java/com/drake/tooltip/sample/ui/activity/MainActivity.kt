@@ -22,35 +22,40 @@
  * SOFTWARE.
  */
 
-package com.drake.tooltip.interfaces
+package com.drake.tooltip.sample.ui.activity
 
-import android.content.Context
-import android.widget.Toast
-import com.drake.tooltip.ToastConfig
+import androidx.core.view.GravityCompat
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.drake.engine.base.EngineActivity
+import com.drake.statusbar.immersive
+import com.drake.tooltip.sample.R
+import com.drake.tooltip.sample.databinding.ActivityMainBinding
 
-interface ToastFactory {
+class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    companion object DEFAULT : ToastFactory {
-        override fun onCreate(
-            context: Context,
-            message: CharSequence,
-            duration: Int,
-            tag: Any?
-        ): Toast? {
-            return Toast.makeText(ToastConfig.context, message, duration)
+    override fun initView() {
+        setSupportActionBar(binding.toolbar)
+        immersive(binding.toolbar, true)
+
+        val navController = findNavController(R.id.fragment)
+        binding.toolbar.setupWithNavController(
+            navController,
+            AppBarConfiguration(binding.drawerNav.menu, binding.drawer)
+        )
+        binding.drawerNav.setupWithNavController(navController)
+    }
+
+    override fun initData() {
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+            binding.drawer.closeDrawers()
+        } else {
+            super.onBackPressed()
         }
     }
 
-    /**
-     * 创建吐司
-     * @param context Application
-     * @param message 吐司内容
-     * @param tag 吐司标签
-     */
-    fun onCreate(
-        context: Context,
-        message: CharSequence,
-        duration: Int,
-        tag: Any? = null
-    ): Toast?
 }

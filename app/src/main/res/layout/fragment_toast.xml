@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 Drake, https://github.com/liangjingkanji
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +24,7 @@
         android:divider="@color/divider"
         android:orientation="vertical"
         android:showDividers="middle"
-        tools:context=".fragment.ToastFragment">
+        tools:context=".ui.fragment.ToastFragment">
 
         <TextView
             android:id="@+id/tvShort"
