@@ -2,16 +2,19 @@
 
 <p align="center"><img src="https://i.imgur.com/HTSYi1S.png" width="25%"/></p>
 
-<p align="center"><strong>用于支持各种提示工具</strong></p>
+<p align="center"><strong>提示对话框</strong></p>
 
-<p align="center"><a href="http://liangjingkanji.github.io/Tooltip/">使用文档</a> | <a href="https://coding-pages-bucket-3558162-8706000-16649-587727-1252757332.cos-website.ap-shanghai.myqcloud.com/">备用访问</a></p>
+<p align="center"><a href="http://liangjingkanji.github.io/Tooltip/">使用文档</a>
+ | <a href="https://github.com/liangjingkanji/document/blob/master/visit-pages.md">无法访问?</a>
+ | <a href="https://liangjingkanji.github.io/document/">贡献代码</a>
+</p>
 
 <p align="center"><img src="https://i.imgur.com/ryI7veS.jpg" width="170"/></p>
 
 <p align="center">
 <a href="https://jitpack.io/#liangjingkanji/Tooltip"><img src="https://jitpack.io/v/liangjingkanji/Tooltip.svg"/></a>
 <img src="https://img.shields.io/badge/language-kotlin-orange.svg"/>
-<img src="https://img.shields.io/badge/license-Apache-blue"/>
+<img src="https://img.shields.io/badge/license-MIT-blue"/>
 <img src="https://raw.githubusercontent.com/liangjingkanji/liangjingkanji/master/img/group.svg"/>
 </p>
 
@@ -19,12 +22,10 @@
 
 ## 介绍
 
-本库集成和简化常用提醒工具
-
-| 提示         | 描述                                                         |
-| ------------ | ------------------------------------------------------------ |
-| Toast        | 子线程显示<br />连续不重叠<br />自定义视图<br />对齐居中显示<br />全局构建吐司<br /> |
-| BubbleDialog | iOS(菊花)加载对话框                                          |
+| 提示         | 描述                |
+| ------------ | ------------------- |
+| Toast        | 扩展功能更好的吐司  |
+| BubbleDialog | iOS(菊花)加载对话框 |
 
 
 
@@ -32,20 +33,7 @@
 
 ## 安装
 
-添加远程仓库根据创建项目的 Android Studio 版本有所不同
-
-Android Studio Arctic Fox以下创建的项目 在项目根目录的 build.gradle 添加仓库
-
-```groovy
-allprojects {
-    repositories {
-        // ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
-Android Studio Arctic Fox以上创建的项目 在项目根目录的 settings.gradle 添加仓库
+在项目根目录的 settings.gradle 添加仓库
 
 ```kotlin
 dependencyResolutionManagement {
@@ -56,10 +44,10 @@ dependencyResolutionManagement {
 }
 ```
 
-然后在 module 的 build.gradle 添加依赖框架
+然后在 module 的 build.gradle 添加依赖
 
 ```groovy
-implementation 'com.github.liangjingkanji:Tooltip:1.2.2'
+implementation 'com.github.liangjingkanji:Tooltip:1.2.3'
 ```
 
 <br>
